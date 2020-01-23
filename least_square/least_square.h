@@ -5,3 +5,5 @@
  * y = ax + b
  */
 int least_square(const std::vector<std::pair<double, double>>& data, double& a, double& b);
+
+int polyfit(const std::vector<std::pair<double, double>>& data, size_t n, std::vector<double>& result);
