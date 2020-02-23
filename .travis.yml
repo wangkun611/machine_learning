@@ -20,7 +20,7 @@ matrix:
       compiler: clang
       env: BUILD_TYPE=Release VERBOSE=1 CXX_FLAGS=-std=c++14 HOMEBREW_LOGS=~/homebrew-logs HOMEBREW_TEMP=~/homebrew-temp
 
-dist: trusty
+dist: xenial 
 
 script: ./ci/travis.sh
 
@@ -42,5 +42,5 @@ git:
     submodules: false
 # Use sed to replace the SSH URL with the public URL, then initialize submodules
 before_install:
-    - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+    - sed -i '' 's/git@github.com:/https:\/\/github.com\//' .gitmodules
     - git submodule update --init --recursive
