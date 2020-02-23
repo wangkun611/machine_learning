@@ -5,6 +5,7 @@ language: cpp
 matrix:
   include:
     - os: linux
+      dist: bionic
       compiler: gcc
       env: BUILD_TYPE=Debug VERBOSE=1 CXX_FLAGS=-std=c++14
     - os: linux
