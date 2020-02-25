@@ -14,5 +14,9 @@ endif()
 
 enable_testing()
 
+set(GOOGLETEST_VERSION 1.10.0)
+# Prevent overriding the parent project's compiler/linker
+# settings on Windows
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 add_subdirectory(gtest/googletest)
 add_subdirectory(least_square)
