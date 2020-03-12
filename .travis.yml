@@ -43,3 +43,4 @@ addons:
     packages:
       - cmake-data
       - cmake
+      - lcov
