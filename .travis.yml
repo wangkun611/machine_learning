@@ -20,6 +20,12 @@ matrix:
     - os: osx
       compiler: clang
       env: BUILD_TYPE=Release VERBOSE=1 CXX_FLAGS=-std=c++14 HOMEBREW_LOGS=~/homebrew-logs HOMEBREW_TEMP=~/homebrew-temp
+    - os: linux
+      compile: gcc
+      env: BUILD_TYPE=Debug VERBOSE=1 CXX_FLAGS=-std=c++14 BUILD_COVERAGE=ON
+      after_success:
+        pip install --user cpp-coveralls
+        coveralls -r .. --gcov-options '\-lp' -e *_unittest.cc -e gtest/*
 
 dist: xenial 
 
