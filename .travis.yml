@@ -1,4 +1,11 @@
 language: cpp
+# This section installs the necessary dependencies.
+addons:
+  apt:
+    packages:
+      - cmake-data
+      - cmake
+      - lcov
 
 # Define the matrix explicitly, manually expanding the combinations of (os, compiler, env).
 # It is more tedious, but grants us far more flexibility.
@@ -22,25 +29,13 @@ matrix:
       env: BUILD_TYPE=Release VERBOSE=1 CXX_FLAGS=-std=c++14 HOMEBREW_LOGS=~/homebrew-logs HOMEBREW_TEMP=~/homebrew-temp
     - os: linux
       compile: gcc
+      dist: bionic
       env: BUILD_TYPE=Debug VERBOSE=1 CXX_FLAGS=-std=c++14 BUILD_COVERAGE=ON
       after_success:
-        pip install --user cpp-coveralls
-        coveralls -r .. --gcov-options '\-lp' -e *_unittest.cc -e gtest/*
+        - pip install --user cpp-coveralls
+        - cd build
+        - coveralls -r .. --gcov-options '\-lp' -E '.*_unittest.cc$' -e gtest -e build/CMakeFiles
 
 dist: xenial 
 
 script: ./ci/travis.sh
-
-# This section installs the necessary dependencies.
-addons:
-  apt:
-    # List of whitelisted in travis packages for ubuntu-precise can be found here:
-    #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
-    # List of whitelisted in travis apt-sources:
-    #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
-    sources:
-      - george-edison55-precise-backports
-    packages:
-      - cmake-data
-      - cmake
-      - lcov
